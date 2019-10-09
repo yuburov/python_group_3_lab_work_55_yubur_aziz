@@ -58,6 +58,7 @@ class CreateView(View):
     def form_invalid(self, form):
         return render(self.request, self.template_name, context={'form': form})
 
+
 class UpdateView(View):
     form_class = None
     template_name = None
@@ -77,7 +78,6 @@ class UpdateView(View):
         initial = {}
         for field in model_fields:
             initial[field] = getattr(self.object, field)
-        print(initial)
         return initial
 
     def post(self, request, *args, **kwargs):
@@ -110,8 +110,6 @@ class UpdateView(View):
 
     def get_redirect_url(self):
         return self.redirect_url
-
-
 
 class DeleteView(View):
     template_name = None

@@ -1,14 +1,11 @@
-from django.shortcuts import render, get_object_or_404, redirect
+
 from django.urls import reverse, reverse_lazy
-from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, \
+    UpdateView, DeleteView
 
 from webapp.forms import ArticleForm, ArticleCommentForm
 from webapp.models import Article
 from django.core.paginator import Paginator
-# from .base_views import UpdateView
-# from webapp.views.base_views import DeleteView
-
 
 class IndexView(ListView):
     context_object_name = 'articles'
@@ -50,8 +47,6 @@ class ArticleCreateView(CreateView):
         return reverse('article_view', kwargs={'pk': self.object.pk})
 
 
-
-
 class ArticleUpdateView(UpdateView):
     model = Article
     template_name = 'article/update.html'
@@ -59,7 +54,7 @@ class ArticleUpdateView(UpdateView):
     form_class = ArticleForm
 
     def get_success_url(self):
-        return  reverse('article_view', kwargs={'pk':self.object.pk})
+        return reverse('article_view', kwargs={'pk': self.object.pk})
 
 class ArticleDeleteView(DeleteView):
     model = Article
