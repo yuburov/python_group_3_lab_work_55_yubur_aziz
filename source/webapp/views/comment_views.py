@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import CommentForm, ArticleCommentForm
 from webapp.models import Comment, Article
-from webapp.views.base_views import UpdateView
 
 
 class CommentListView(ListView):
@@ -40,8 +39,6 @@ class CommentUpdateView(UpdateView):
     model = Comment
     template_name = 'comment/update.html'
     form_class = ArticleCommentForm
-    context_key = 'comment'
-    def get_redirect_url(self):
     context_object_name = 'comment'
 
     def get_success_url(self):
