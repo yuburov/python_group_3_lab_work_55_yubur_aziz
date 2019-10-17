@@ -1,12 +1,12 @@
 from django import forms
-from webapp.models import Article, Comment
+from webapp.models import Article, Comment, Tag
 
 
 class ArticleForm(forms.ModelForm):
+    tags = forms.CharField(max_length=200, required=False, label='Тэги')
     class Meta:
         model = Article
-        exclude = ['created_at', 'updated_at']
-
+        exclude = ['created_at', 'updated_at', 'tags']
 
 class CommentForm(forms.ModelForm):
     class Meta:
