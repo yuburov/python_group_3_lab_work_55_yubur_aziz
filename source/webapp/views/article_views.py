@@ -26,6 +26,9 @@ class IndexView(ListView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         if self.search_query:
             context['query'] = urlencode({'search': self.search_query})
+        tag_filter = self.request.GET
+        if 'tag' in tag_filter:
+            context['articles'] = Article.objects.filter(tags__name=tag_filter.get('tag'))
         context['form'] = self.form
         return context
 
@@ -35,6 +38,7 @@ class IndexView(ListView):
             queryset = queryset.filter(
                 Q(title__icontains=self.search_query)
                 | Q(author__icontains=self.search_query)
+                | Q(tags__name__iexact=self.search_query)
             )
         return queryset
 
